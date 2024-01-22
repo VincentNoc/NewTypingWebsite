@@ -1,6 +1,6 @@
 import React from "react";
 import "../style.css";
-import HomeToTypeButton from "../components/homeToTypeButton";
+import HomeToTypeButton from "../components/homeToTypeButton.jsx";
 
 export default function Home() {
   return (
