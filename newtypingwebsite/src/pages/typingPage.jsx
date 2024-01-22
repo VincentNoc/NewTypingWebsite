@@ -1,43 +1,29 @@
-import { fetchData, seperateQuote } from "../services/api";
-import React, { useState, useEffect } from "react";
+// import React, { useState, useEffect } from "react";
 import CountDownTimer from "../components/countDownTimer";
+import QuoteDisplay from "../components/quoteDisplay";
+import RestartButton from "../components/restartButton";
+import Results from "../components/results";
+
 export default function TypingPage() {
-  const [randomWords, setRandomWords] = useState([]);
-  const [error, setError] = useState(null);
-
-  //this fetches the response from the api service
-  const FetchRandomQuoteFromApi = async () => {
-    try {
-      const response = await fetchData();
-      const seperateResponse = seperateQuote(response);
-      setRandomWords(seperateResponse);
-    } catch (error) {
-      setError(error.message);
-    }
-  };
-
-  useEffect(() => {
-    FetchRandomQuoteFromApi();
-  }, []);
-
-  const displayQuote = randomWords.map((word, index) => (
-    <span key={index}>
-      <span className="inline-block p-1">{word}</span>
-    </span>
-  ));
+  const timeLimit = 30;
 
   // console.log("hi there");
   // console.log(FetchRandomQuoteFromApi);
 
   return (
-    <div className="bg-gray-800 h-screen">
-      <div className="flex flex-col items-center justify-center bg-gray-800 h-screen w-screen">
-        <div className="flex flex-col">
-          <CountDownTimer timeLeft={30} />
-        </div>
+    <div className="flex flex-col items-center justify-center bg-gray-800 h-screen w-screen">
+      <div className="flex flex-col relative items-center justify-center w-1/2 h-screen">
+        <CountDownTimer timeLeft={timeLimit} />
         <p className="text-white font-Hedvig text-2xl tracking-wider">
-          {displayQuote}
+          <QuoteDisplay />
         </p>
+        <Results
+          className="mt-10"
+          errors={10}
+          accuracyPercentage={100}
+          total={120}
+        />
+        <RestartButton />
       </div>
     </div>
   );
